@@ -312,7 +312,7 @@ INSERT INTO student VALUES(1,'John',200); -- This data will be accepted as there
 -----------------------------------------------------------------------------------------------------------------
 DROP TABLE address;
 DROP TABLE student;
--------------------------------------------------------------------------
+---------------------------------------------------------------------------
 
 CREATE TABLE address(
 hno INTEGER PRIMARY KEY,
@@ -349,7 +349,7 @@ hno INTEGER,
 CONSTRAINT student_hno_fk FOREIGN KEY(hno) REFERENCES address(hno)
 );
 -- In the above SQL we have created a foreign key constraint at the table level.
-----------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------
 
  CREATE TABLE Student (
 2     StudentId INTEGER PRIMARY KEY (StudentId),
@@ -366,7 +366,7 @@ Line 4: We are applying check constraint at column level when the constraint is 
 Line 5: We have not mentioned the default value. [ Hint: DOJ DATE DEFAULT '01-Jan-2022']
 Line 6: The check constraint condition should be within brackets.
 Line 7: We dont write FOREIGN KEY , when we are defining the column level constraint.
------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------
 INSERTING RECORDS/TUPLES in a table
 
 CREATE TABLE employeedetails(
@@ -409,7 +409,7 @@ INSERT INTO employeedetails(id,firstname,middlname,lastname,mobile) VALUES(5,'Ro
 -- The above way of writing is also good and can be used because here we are mentioning the sequence and name
 -- of the columns. Though here we have not skipped any of the column of the table.
 
------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------
 
 
 CREATE TABLE employeedetails(
@@ -446,7 +446,7 @@ INSERT INTO employeedetailsbackup(id,mobile) SELECT id,mobile FROM employeedetai
 Can we give a condition for the select statement?
 Yes
 INSERT INTO employeedetailsbackup(id,mobile) SELECT id,mobile FROM employeedetails WHERE id=2;
----------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------
 INSERT INTO employeedetails VALUES(6,'Kavita','Senghani',6755412310);
 
 -- The above insertion of the record will show error as not enough values. 
@@ -454,6 +454,79 @@ If column names are not used then values must be provided for all columns in the
 If column names are used then the data provided in the values clause must have the same data type of column at same position.
 INSERT INTO employeedetails(id,firstname,lastname,mobile) VALUES(4,7166472370,'Sudhakar','Suresh'); 
 -- The above command we are not sticking to the data type of the column and the datatype of the values.
----------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------
 While inserting data, column values should match column type definition(e.g., you can’t insert a textual value into the numerical column/attribute). If the column is of strings or date time or characters, they need to be enclosed in single quotes(You cannot use double quotes). String data is case sensitive and will be stored as given within quotes. If the data is numeric, you don't need the quotes. NULL also should not be enclosed with quotes.
 --------------------------------------------------------------------------------------------------------------------------------------
+Table-------------------------------------- SELECT COMMAND(SELECT * FROM employeedetails)---------------------> Result table (ad-hoc)
+id fname  mname lname  mobile
+1  Suresh Kumar Sethi 8756412390                                                                   1  Suresh Kumar Sethi 8756412390
+2  Sai    NULL  Sudha 9156412370
+
+---------------------------------------------------------------------------------------------------------------------
+Table---------------------SELECT COMMAND(SELECT * FROM employeedetails WHERE basic>20000)---------------------> Result table (ad-hoc)
+id fname  mname lname  mobile     basic
+1  Suresh Kumar Sethi 8756412390  10000                                              2  Sai    NULL  Sudha 9156412370  21000       
+2  Sai    NULL  Sudha 9156412370  21000
+
+
+
+CREATE TABLE employeedetails(
+id INTEGER ,
+firstname VARCHAR2(20) NOT NULL,
+middlename VARCHAR2(20),
+lastname VARCHAR2(20) NOT NULL,
+mobile INTEGER UNIQUE,
+CONSTRAINT employee_id_pk PRIMARY KEY(id)
+);
+
+INSERT INTO employeedetails VALUES(1,'Suresh','Kumar','Sethi',8756412390);
+INSERT INTO employeedetails VALUES(2,'Sai',NULL,'Sudha',9156412370);
+
+
+-- Display the details of all the employees
+
+SELECT * FROM employeedetails; -- * means all the columns ( namely id,firstname,middlename,lastname and mobile)
+
+-- Display the id and firstname for all the employees
+SELECT id,firstname FROM employeedetails; -- display the column id and firstname for all the rows/records.
+
+
+-- Display firstname and id from the employee table for all the records
+SELECT firstname,id FROLM employeedetails; 
+
+
+Q I need to add a new column basic of INTEGER datatype
+A ALTER TABLE employeedetails ADD basic INTEGER;
+
+INSERT INTO employeedetails VALUES(3,'James',NULL,'Jordan',9156422361,20000);
+INSERT INTO employeedetails VALUES(4,'Sudhir','Ranjan','Tiwari',7256422368,30000);
+
+
+-- Display the id and firstname for all the employees whose basic is more than 10000.
+SELECT id,firstname FROM employeedetails WHERE basic>10000;
+
+-- Display the id and firstname for all the employees whose basic is more than 10000 or equal to 10000.
+SELECT id,firstname FROM employeedetails WHERE basic>=10000;
+
+
+-- Display the id and firstname,lastname for all the employees whose basic is less than 10000.
+SELECT id,firstname,lastname FROM employeedetails WHERE basic<10000;
+
+
+-- Display the id and firstname for all the employees whose basic is less than 10000 or equal to 10000.
+SELECT id,firstname,lastname FROM employeedetails WHERE basic<=10000;
+
+
+-- Display the id,firstname and basic for all the employees where basic is between 10000 and 20000.
+SELECT id,firstname,basic FROM employeedetails WHERE basic>=10000 AND basic<=20000;
+OR
+SELECT id,firstname,basic FROM employeedetails WHERE basic BETWEEN 10000 AND 20000;
+
+---------------------------
+
+int num[]={1,2,3,4,5};
+
+for(int n : num){
+
+System.out.println(n);
+}
